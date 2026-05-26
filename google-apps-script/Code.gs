@@ -30,7 +30,7 @@ function doPost(e) {
         to: DEMO_EMAIL,
         subject: `Pedido de marcação demo — ${body.name || 'Paciente'}`,
         body:
-`Novo pedido de marcação demo\n\nNome: ${body.name || '-'}\nEmail: ${body.email || '-'}\nTelefone: ${body.phone || '-'}\nClínica: ${body.clinic || '-'}\nMensagem: ${body.message || '-'}\nSelecionada no mapa: ${body.clinicSelected || '-'}\n\nOrigem: Protótipo sorri é aqui`
+`Novo pedido de marcação demo\n\nNome: ${body.name || '-'}\nEmail: ${body.email || '-'}\nTelefone: ${body.phone || '-'}\nClínica: ${body.clinic || '-'}\nMensagem: ${body.message || '-'}\nSelecionada no mapa: ${body.clinicSelected || '-'}\n\nOrigem: Protótipo REDE AORRISO`
       });
     }
 
@@ -46,6 +46,6 @@ function doPost(e) {
 
 function doGet() {
   return ContentService
-    .createTextOutput(JSON.stringify({ ok: true, service: 'sorri é aqui API' }))
+    .createTextOutput(JSON.stringify({ ok: true, service: 'REDE AORRISO API' }))
     .setMimeType(ContentService.MimeType.JSON);
 }

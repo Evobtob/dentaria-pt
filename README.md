@@ -1,4 +1,4 @@
-# sorri é aqui — Protótipo iOS-style
+# REDE AORRISO — Protótipo iOS-style
 
 Protótipo mobile-first para clínicas dentárias nacionais (com dados demo da zona do Porto).
 

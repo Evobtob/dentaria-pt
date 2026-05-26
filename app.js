@@ -164,7 +164,7 @@ async function logToSheet(payload) {
 function openDemoEmail(payload) {
   const subject = encodeURIComponent(`Pedido de marcação demo — ${payload.name}`);
   const body = encodeURIComponent(
-`Pedido demo de marcação\n\nNome: ${payload.name}\nEmail: ${payload.email}\nTelefone: ${payload.phone}\nClínica: ${payload.clinic}\nMensagem: ${payload.message || '-'}\nOrigem: Protótipo sorri é aqui`
+`Pedido demo de marcação\n\nNome: ${payload.name}\nEmail: ${payload.email}\nTelefone: ${payload.phone}\nClínica: ${payload.clinic}\nMensagem: ${payload.message || '-'}\nOrigem: Protótipo REDE AORRISO`
   );
   window.location.href = `mailto:brunoairesaugusto@gmail.com?subject=${subject}&body=${body}`;
 }
