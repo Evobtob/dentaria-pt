@@ -1,0 +1,15 @@
+{
+  "name": "Dentária PT",
+  "short_name": "DentáriaPT",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f2f4f8",
+  "theme_color": "#0a84ff",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
