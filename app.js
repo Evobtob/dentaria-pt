@@ -15,6 +15,7 @@ const clinics = [
       ["Branqueamento", "220€"],
       ["Implante unitário", "900€"],
     ],
+    googleReview: { rating: 4.8, count: 214 },
     socials: { instagram: "https://instagram.com", facebook: "https://facebook.com" }
   },
   {
@@ -26,6 +27,7 @@ const clinics = [
     description: "Atendimento familiar, urgências e medicina dentária preventiva.",
     services: ["Urgência", "Odontopediatria", "Higiene oral"],
     prices: [["Consulta", "40€"], ["Urgência", "70€"], ["Restauração", "85€"]],
+    googleReview: { rating: 4.6, count: 132 },
     socials: { instagram: "https://instagram.com", website: "https://example.com" }
   },
   {
@@ -37,6 +39,7 @@ const clinics = [
     description: "Especialistas em cirurgia oral, próteses e reabilitação oral.",
     services: ["Cirurgia oral", "Próteses", "Endodontia"],
     prices: [["Consulta", "50€"], ["Endodontia", "180€"], ["Prótese fixa", "650€"]],
+    googleReview: { rating: 4.7, count: 189 },
     socials: { facebook: "https://facebook.com", website: "https://example.com" }
   }
 ];
@@ -61,7 +64,14 @@ function renderClinicList(items) {
   items.forEach(c => {
     const el = document.createElement('div');
     el.className = 'clinic-item';
-    el.innerHTML = `<h3>${c.name}</h3><p>${c.zone}</p><button class="btn small">Ver detalhe</button>`;
+    el.innerHTML = `
+      <div class="clinic-head">
+        <h3>${c.name}</h3>
+        <div class="google-review" title="Google Reviews">⭐ ${c.googleReview.rating} <span>(${c.googleReview.count})</span></div>
+      </div>
+      <p>${c.zone}</p>
+      <button class="btn small">Ver detalhe</button>
+    `;
     el.querySelector('button').addEventListener('click', () => {
       selectedClinic = c;
       renderDetail(c);

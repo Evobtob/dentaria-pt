@@ -57,6 +57,18 @@ textarea { min-height: 82px; resize: vertical; }
 .list { display: grid; gap: 10px; }
 .clinic-item { padding: 12px; border-radius: 14px; background: #fff; border: 1px solid var(--border); box-shadow: 0 4px 14px rgba(16,124,197,.08); }
 .clinic-item h3 { margin: 0 0 6px; font-size: 1rem; }
+.clinic-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.google-review {
+  white-space: nowrap;
+  font-size: .78rem;
+  font-weight: 700;
+  color: #0a8fd7;
+  background: #e7f6ff;
+  border: 1px solid #bfe6ff;
+  border-radius: 999px;
+  padding: 4px 8px;
+}
+.google-review span { color: #2f617f; font-weight: 600; }
 .row { display: flex; gap: 8px; }
 .row .btn { flex: 1; }
 .price-list li, .services-list li { margin: 4px 0; }
