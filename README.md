@@ -1,4 +1,4 @@
-# REDE AORRISO — Protótipo iOS-style
+# REDE SORRISO — Protótipo iOS-style
 
 Protótipo mobile-first para clínicas dentárias nacionais (com dados demo da zona do Porto).
 

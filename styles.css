@@ -85,6 +85,22 @@ textarea { min-height: 82px; resize: vertical; }
   padding: 4px 8px;
 }
 .google-review span { color: #2f617f; font-weight: 600; }
+.clinic-actions-row { margin: 6px 0 8px; }
+.btn-like {
+  border: 1px solid #bfe6ff;
+  background: #f2fbff;
+  color: #0a8fd7;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-weight: 700;
+  font-size: .8rem;
+  cursor: pointer;
+}
+.btn-like.liked {
+  background: #ffeaf2;
+  border-color: #ffc1d8;
+  color: #cc2f69;
+}
 .row { display: flex; gap: 8px; }
 .row .btn { flex: 1; }
 .price-list li, .services-list li { margin: 4px 0; }

@@ -1,4 +1,8 @@
 const APPS_SCRIPT_WEBAPP_URL = "COLOCA_AQUI_O_URL_DO_APPS_SCRIPT_EXEC";
+const likesKey = 'clinicLikes';
+const likedKey = 'clinicLikedIds';
+let clinicLikes = JSON.parse(localStorage.getItem(likesKey) || '{}');
+let clinicLikedIds = JSON.parse(localStorage.getItem(likedKey) || '[]');
 
 const clinics = [
   {
@@ -16,6 +20,7 @@ const clinics = [
       ["Implante unitário", "900€"],
     ],
     googleReview: { rating: 4.8, count: 214 },
+    likes: 48,
     socials: { instagram: "https://instagram.com", facebook: "https://facebook.com" }
   },
   {
@@ -28,6 +33,7 @@ const clinics = [
     services: ["Urgência", "Odontopediatria", "Higiene oral"],
     prices: [["Consulta", "40€"], ["Urgência", "70€"], ["Restauração", "85€"]],
     googleReview: { rating: 4.6, count: 132 },
+    likes: 35,
     socials: { instagram: "https://instagram.com", website: "https://example.com" }
   },
   {
@@ -40,6 +46,7 @@ const clinics = [
     services: ["Cirurgia oral", "Próteses", "Endodontia"],
     prices: [["Consulta", "50€"], ["Endodontia", "180€"], ["Prótese fixa", "650€"]],
     googleReview: { rating: 4.7, count: 189 },
+    likes: 41,
     socials: { facebook: "https://facebook.com", website: "https://example.com" }
   }
 ];
@@ -70,9 +77,26 @@ function renderClinicList(items) {
         <div class="google-review" title="Google Reviews">⭐ ${c.googleReview.rating} <span>(${c.googleReview.count})</span></div>
       </div>
       <p>${c.zone}</p>
+      <div class="clinic-actions-row">
+        <button class="btn-like ${clinicLikedIds.includes(c.id) ? 'liked' : ''}" data-like-id="${c.id}" type="button">❤️ ${clinicLikes[c.id] ?? c.likes ?? 0}</button>
+      </div>
       <button class="btn small">Ver detalhe</button>
     `;
-    el.querySelector('button').addEventListener('click', () => {
+    const likeBtn = el.querySelector('[data-like-id]');
+    likeBtn.addEventListener('click', () => {
+      const id = c.id;
+      if (clinicLikedIds.includes(id)) {
+        clinicLikedIds = clinicLikedIds.filter(x => x !== id);
+        clinicLikes[id] = Math.max((clinicLikes[id] ?? c.likes ?? 0) - 1, 0);
+      } else {
+        clinicLikedIds.push(id);
+        clinicLikes[id] = (clinicLikes[id] ?? c.likes ?? 0) + 1;
+      }
+      localStorage.setItem(likesKey, JSON.stringify(clinicLikes));
+      localStorage.setItem(likedKey, JSON.stringify(clinicLikedIds));
+      renderClinicList(items);
+    });
+    el.querySelector('.btn.small').addEventListener('click', () => {
       selectedClinic = c;
       renderDetail(c);
       map.setView([c.lat, c.lng], 13);
@@ -174,7 +198,7 @@ async function logToSheet(payload) {
 function openDemoEmail(payload) {
   const subject = encodeURIComponent(`Pedido de marcação demo — ${payload.name}`);
   const body = encodeURIComponent(
-`Pedido demo de marcação\n\nNome: ${payload.name}\nEmail: ${payload.email}\nTelefone: ${payload.phone}\nClínica: ${payload.clinic}\nMensagem: ${payload.message || '-'}\nOrigem: Protótipo REDE AORRISO`
+`Pedido demo de marcação\n\nNome: ${payload.name}\nEmail: ${payload.email}\nTelefone: ${payload.phone}\nClínica: ${payload.clinic}\nMensagem: ${payload.message || '-'}\nOrigem: Protótipo REDE SORRISO`
   );
   window.location.href = `mailto:brunoairesaugusto@gmail.com?subject=${subject}&body=${body}`;
 }
