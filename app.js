@@ -1,8 +1,10 @@
 const APPS_SCRIPT_WEBAPP_URL = "COLOCA_AQUI_O_URL_DO_APPS_SCRIPT_EXEC";
 const likesKey = 'clinicLikes';
 const likedKey = 'clinicLikedIds';
+const teleKey = 'teleconsultRequests';
 let clinicLikes = JSON.parse(localStorage.getItem(likesKey) || '{}');
 let clinicLikedIds = JSON.parse(localStorage.getItem(likedKey) || '[]');
+let teleconsultRequests = JSON.parse(localStorage.getItem(teleKey) || '[]');
 
 const clinics = [
   { id: 1, name: "Clínica Sorriso Boavista", zone: "Boavista, Porto", lat: 41.1623, lng: -8.6291, description: "Clínica moderna focada em estética dentária e implantologia.", services: ["Consulta geral", "Implantes", "Ortodontia", "Branqueamento"], prices: [["Consulta", "45€"], ["Destartarização", "60€"], ["Branqueamento", "220€"]], googleReview: { rating: 4.8, count: 214 }, likes: 48, socials: { instagram: "https://instagram.com", facebook: "https://facebook.com" } },
@@ -198,8 +200,73 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
   e.target.reset();
 });
 
+function saveTeleconsultRequests() {
+  localStorage.setItem(teleKey, JSON.stringify(teleconsultRequests));
+}
+
+function renderTeleBoard() {
+  const board = document.getElementById('teleBoard');
+  if (!board) return;
+
+  if (!teleconsultRequests.length) {
+    board.innerHTML = '<p class="hint">Sem pedidos ainda.</p>';
+    return;
+  }
+
+  board.innerHTML = teleconsultRequests
+    .map((r, idx) => `
+      <article class="tele-item">
+        <div class="tele-head">
+          <strong>${r.name}</strong>
+          <span class="tele-status">${r.status || 'Pendente'}</span>
+        </div>
+        <p><strong>Contacto:</strong> ${r.phone} · ${r.email}</p>
+        <p><strong>Data/hora preferida:</strong> ${r.preferredDate} ${r.preferredTime}</p>
+        <p><strong>Motivo:</strong> ${r.reason}</p>
+        <p><strong>Notas:</strong> ${r.notes || '-'}</p>
+        <div class="tele-actions">
+          <button type="button" class="btn small" data-tele-action="review" data-tele-id="${idx}">Em triagem</button>
+          <button type="button" class="btn small" data-tele-action="done" data-tele-id="${idx}">Concluída</button>
+        </div>
+      </article>`)
+    .reverse()
+    .join('');
+
+  board.querySelectorAll('[data-tele-action]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const idx = Number(btn.dataset.teleId);
+      const action = btn.dataset.teleAction;
+      if (!teleconsultRequests[idx]) return;
+      teleconsultRequests[idx].status = action === 'review' ? 'Em triagem' : 'Concluída';
+      saveTeleconsultRequests();
+      renderTeleBoard();
+    });
+  });
+}
+
+document.getElementById('teleForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const status = document.getElementById('teleStatus');
+  const data = Object.fromEntries(new FormData(e.target).entries());
+  const payload = {
+    ...data,
+    clinic: selectedClinic?.name || '',
+    status: 'Pendente',
+    createdAt: new Date().toISOString()
+  };
+
+  teleconsultRequests.push(payload);
+  saveTeleconsultRequests();
+  renderTeleBoard();
+
+  status.textContent = 'Pedido de teleconsulta registado.';
+  await logToSheet({ type: 'teleconsulta', ...payload });
+  e.target.reset();
+});
+
 renderClinicList(clinics);
 renderDetail(clinics[0]);
+renderTeleBoard();
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js').catch(() => {});

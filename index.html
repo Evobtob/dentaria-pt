@@ -69,6 +69,37 @@
           <p id="contactStatus" class="hint"></p>
         </div>
       </section>
+
+      <section id="tab-tele" class="tab-content">
+        <div class="card glass">
+          <h2>Teleconsulta</h2>
+          <p class="hint">Pedido de teleconsulta para triagem inicial. Não substitui exame clínico presencial quando necessário.</p>
+          <form id="teleForm">
+            <input name="name" type="text" placeholder="Nome" required />
+            <input name="email" type="email" placeholder="Email" required />
+            <input name="phone" type="tel" placeholder="Telefone" required />
+            <input name="preferredDate" type="date" required />
+            <input name="preferredTime" type="time" required />
+            <select name="reason" required>
+              <option value="">Motivo da teleconsulta</option>
+              <option>Dor / urgência</option>
+              <option>2ª opinião</option>
+              <option>Orçamento / plano</option>
+              <option>Pós-operatório</option>
+              <option>Outro</option>
+            </select>
+            <textarea name="notes" placeholder="Notas clínicas iniciais (opcional)"></textarea>
+            <button type="submit" class="btn">Solicitar teleconsulta</button>
+          </form>
+          <p id="teleStatus" class="hint"></p>
+        </div>
+
+        <div class="card glass">
+          <h3>Quadro do médico — Pedidos de teleconsulta</h3>
+          <p class="hint">Vista operacional para triagem e acompanhamento.</p>
+          <div id="teleBoard" class="tele-board"></div>
+        </div>
+      </section>
     </main>
 
     <nav class="tabbar glass">
@@ -76,6 +107,7 @@
       <button class="tab-btn" data-tab="detail">Detalhe</button>
       <button class="tab-btn" data-tab="help">Tira-dúvidas</button>
       <button class="tab-btn" data-tab="contact">Marcar</button>
+      <button class="tab-btn" data-tab="tele">Teleconsulta</button>
     </nav>
   </div>
 
