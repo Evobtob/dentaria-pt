@@ -135,13 +135,21 @@ function botReply(userText) {
   return 'Posso orientar de forma geral, mas para diagnóstico tens de marcar avaliação presencial.';
 }
 
-document.getElementById('chatSend').addEventListener('click', () => {
+function submitChatMessage() {
   const input = document.getElementById('chatInput');
   const txt = input.value.trim();
   if (!txt) return;
   addMessage(txt, 'user');
   addMessage(botReply(txt), 'bot');
   input.value = '';
+}
+
+document.getElementById('chatSend').addEventListener('click', submitChatMessage);
+document.getElementById('chatInput').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    submitChatMessage();
+  }
 });
 
 const loginModal = document.getElementById('loginModal');
