@@ -27,16 +27,16 @@ body {
 .topbar {
   position: sticky; top: 8px; z-index: 3;
   display: flex; justify-content: space-between; align-items: center;
-  padding: 16px; border-radius: 22px; margin: 8px 0 14px;
+  padding: 24px 18px; border-radius: 24px; margin: 8px 0 16px;
   background: linear-gradient(135deg, #3eb9ff 0%, #7ad6ff 55%, #bdefff 100%);
   border: 1px solid #8ad9ff;
-  box-shadow: 0 14px 30px rgba(17, 138, 209, 0.26);
+  box-shadow: 0 18px 38px rgba(17, 138, 209, 0.34);
 }
-h1 { margin: 0; font-size: 1.38rem; letter-spacing: .02em; color: #ffffff; font-weight: 800; }
+h1 { margin: 0; font-size: 2rem; letter-spacing: .03em; color: #ffffff; font-weight: 900; line-height: 1; }
 .brand-tag {
-  margin: 5px 0 0;
+  margin: 9px 0 0;
   display: inline-block;
-  font-size: .72rem;
+  font-size: .78rem;
   text-transform: uppercase;
   letter-spacing: .08em;
   color: #0f5f88;
@@ -47,6 +47,7 @@ h1 { margin: 0; font-size: 1.38rem; letter-spacing: .02em; color: #ffffff; font-
   font-weight: 700;
 }
 .subtitle { margin: 7px 0 0; color: #eaf8ff; font-size: .82rem; font-weight: 500; }
+.topbar .btn.small { padding: 10px 12px; font-size: .86rem; border-radius: 13px; }
 .card {
   border-radius: var(--radius);
   padding: 14px;
