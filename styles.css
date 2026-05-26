@@ -131,7 +131,7 @@ textarea { min-height: 82px; resize: vertical; }
 .tabbar {
   position: fixed; left: 50%; transform: translateX(-50%); bottom: 10px;
   width: min(430px, calc(100% - 16px)); border-radius: 18px; padding: 8px;
-  display: grid; grid-template-columns: repeat(4,1fr); gap: 6px;
+  display: grid; grid-template-columns: repeat(5,1fr); gap: 6px;
 }
 .tab-btn { border: none; background: transparent; padding: 10px 6px; border-radius: 12px; font-weight: 600; color: #2a516d; }
 .tab-btn.active { background: #dff2ff; color: #0a8fd7; }
@@ -139,3 +139,49 @@ textarea { min-height: 82px; resize: vertical; }
 .tab-content.active { display: block; }
 #loginModal { border: none; border-radius: 18px; padding: 0; width: min(92vw,380px); }
 .login-form { padding: 16px; background: #fff; }
+
+.tele-board { display: grid; gap: 10px; }
+.tele-item {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fafdff;
+  padding: 10px;
+}
+.tele-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.tele-status {
+  font-size: .76rem;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 4px 9px;
+  border: 1px solid #9ed4f5;
+  color: #116c9f;
+  background: #e7f6ff;
+}
+.tele-item p { margin: 4px 0; font-size: .88rem; }
+.tele-actions { display: flex; gap: 8px; margin-top: 8px; }
+.tele-actions .btn.small { flex: 1; }
+
+.sim-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.sim-result {
+  margin-top: 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px;
+  background: #f8fbff;
+}
+.sim-result ul {
+  margin: 8px 0 0;
+  padding-left: 18px;
+}
+@media (max-width: 380px) {
+  .sim-grid { grid-template-columns: 1fr; }
+}

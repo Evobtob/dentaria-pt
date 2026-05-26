@@ -100,6 +100,45 @@
           <div id="teleBoard" class="tele-board"></div>
         </div>
       </section>
+
+      <section id="tab-simulador" class="tab-content">
+        <div class="card glass">
+          <h2>Simulador de preço</h2>
+          <p class="disclaimer">Estimativa informativa por intervalos médios. Não substitui diagnóstico médico presencial.</p>
+          <form id="simForm">
+            <label>Tratamentos que imaginas necessitar</label>
+            <div class="sim-grid">
+              <div>
+                <label for="simAligners">Ortodontia invisível (caso)</label>
+                <select id="simAligners" name="alignersComplexity">
+                  <option value="">Não incluir</option>
+                  <option value="simple">Simples</option>
+                  <option value="medium">Médio</option>
+                  <option value="complex">Complexo</option>
+                </select>
+              </div>
+              <div>
+                <label for="simImplants">Nº implantes</label>
+                <input id="simImplants" name="implants" type="number" min="0" max="12" value="0" />
+              </div>
+              <div>
+                <label for="simCaries">Nº cáries (restaurações)</label>
+                <input id="simCaries" name="caries" type="number" min="0" max="20" value="0" />
+              </div>
+              <div>
+                <label for="simScenario">Cenário</label>
+                <select id="simScenario" name="scenario">
+                  <option value="essential">Essencial</option>
+                  <option value="recommended" selected>Recomendado</option>
+                  <option value="premium">Premium</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" class="btn">Calcular estimativa</button>
+          </form>
+          <div id="simResult" class="sim-result"></div>
+        </div>
+      </section>
     </main>
 
     <nav class="tabbar glass">
@@ -107,6 +146,7 @@
       <button class="tab-btn" data-tab="detail">Detalhe</button>
       <button class="tab-btn" data-tab="help">Tira-dúvidas</button>
       <button class="tab-btn" data-tab="tele">Teleconsulta</button>
+      <button class="tab-btn" data-tab="simulador">Simulador</button>
     </nav>
   </div>
 

@@ -264,6 +264,97 @@ document.getElementById('teleForm').addEventListener('submit', async (e) => {
   e.target.reset();
 });
 
+const PRICING_BASE = {
+  aligners: {
+    simple: [1800, 2800],
+    medium: [2800, 4200],
+    complex: [4200, 6200]
+  },
+  implantPerUnit: [850, 1450],
+  cariePerUnit: [70, 140]
+};
+
+const SCENARIO_FACTOR = {
+  essential: [0.9, 0.95],
+  recommended: [1, 1],
+  premium: [1.15, 1.25]
+};
+
+function euro(v) {
+  return `${Math.round(v).toLocaleString('pt-PT')}€`;
+}
+
+function calcSimulatorEstimate({ alignersComplexity, implants, caries, scenario }) {
+  const scenarioKey = SCENARIO_FACTOR[scenario] ? scenario : 'recommended';
+  const factor = SCENARIO_FACTOR[scenarioKey];
+
+  let min = 0;
+  let max = 0;
+  const lines = [];
+
+  if (alignersComplexity && PRICING_BASE.aligners[alignersComplexity]) {
+    const [aMin, aMax] = PRICING_BASE.aligners[alignersComplexity];
+    min += aMin;
+    max += aMax;
+    lines.push(`Ortodontia invisível (${alignersComplexity}): ${euro(aMin)}–${euro(aMax)}`);
+  }
+
+  const nImplants = Math.max(Number(implants) || 0, 0);
+  if (nImplants > 0) {
+    const iMin = PRICING_BASE.implantPerUnit[0] * nImplants;
+    const iMax = PRICING_BASE.implantPerUnit[1] * nImplants;
+    min += iMin;
+    max += iMax;
+    lines.push(`Implantes (${nImplants}): ${euro(iMin)}–${euro(iMax)}`);
+  }
+
+  const nCaries = Math.max(Number(caries) || 0, 0);
+  if (nCaries > 0) {
+    const cMin = PRICING_BASE.cariePerUnit[0] * nCaries;
+    const cMax = PRICING_BASE.cariePerUnit[1] * nCaries;
+    min += cMin;
+    max += cMax;
+    lines.push(`Restaurações cárie (${nCaries}): ${euro(cMin)}–${euro(cMax)}`);
+  }
+
+  return {
+    lines,
+    totalMin: min * factor[0],
+    totalMax: max * factor[1],
+    scenario: scenarioKey,
+    hasItems: lines.length > 0
+  };
+}
+
+const simForm = document.getElementById('simForm');
+if (simForm) {
+  simForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = Object.fromEntries(new FormData(e.target).entries());
+    const resultEl = document.getElementById('simResult');
+    const estimate = calcSimulatorEstimate(form);
+
+    if (!estimate.hasItems) {
+      resultEl.innerHTML = '<p class="hint">Seleciona pelo menos um tratamento para simular.</p>';
+      return;
+    }
+
+    resultEl.innerHTML = `
+      <strong>Estimativa total (${estimate.scenario}): ${euro(estimate.totalMin)} – ${euro(estimate.totalMax)}</strong>
+      <ul>${estimate.lines.map((l) => `<li>${l}</li>`).join('')}</ul>
+      <p class="hint">Estimativa média informativa. Valor final depende de diagnóstico clínico, exames e plano de tratamento.</p>
+    `;
+
+    await logToSheet({
+      type: 'simulador_preco',
+      clinic: selectedClinic?.name || '',
+      ...form,
+      totalMin: Math.round(estimate.totalMin),
+      totalMax: Math.round(estimate.totalMax)
+    });
+  });
+}
+
 renderClinicList(clinics);
 renderDetail(clinics[0]);
 renderTeleBoard();
