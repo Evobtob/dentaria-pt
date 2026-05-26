@@ -27,10 +27,26 @@ body {
 .topbar {
   position: sticky; top: 8px; z-index: 3;
   display: flex; justify-content: space-between; align-items: center;
-  padding: 14px; border-radius: var(--radius); margin: 8px 0 14px;
+  padding: 16px; border-radius: 22px; margin: 8px 0 14px;
+  background: linear-gradient(135deg, #3eb9ff 0%, #7ad6ff 55%, #bdefff 100%);
+  border: 1px solid #8ad9ff;
+  box-shadow: 0 14px 30px rgba(17, 138, 209, 0.26);
 }
-h1 { margin: 0; font-size: 1.2rem; letter-spacing: -.01em; }
-.subtitle { margin: 4px 0 0; color: var(--muted); font-size: .82rem; }
+h1 { margin: 0; font-size: 1.38rem; letter-spacing: .02em; color: #ffffff; font-weight: 800; }
+.brand-tag {
+  margin: 5px 0 0;
+  display: inline-block;
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: #0f5f88;
+  background: rgba(255,255,255,.72);
+  border: 1px solid rgba(255,255,255,.84);
+  border-radius: 999px;
+  padding: 3px 8px;
+  font-weight: 700;
+}
+.subtitle { margin: 7px 0 0; color: #eaf8ff; font-size: .82rem; font-weight: 500; }
 .card {
   border-radius: var(--radius);
   padding: 14px;
